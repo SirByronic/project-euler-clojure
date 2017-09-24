@@ -32,3 +32,17 @@
 (fib 2)
 
 (apply + (filter even? (take-while #(< % 4.0E6) (map fib (range)))))
+
+
+;; ---- Using Memoize
+
+(defn fibonacci [n]
+  (if (< n 3) n
+    (+ (fibonacci (- n 1)) (fibonacci (- n 2)))
+  )
+)
+
+
+(def memo-fib (memoize fibonacci))
+
+(apply + (filter even? (take-while #(< % 4.0E6) (map memo-fib (range)))))
